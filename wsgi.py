@@ -3,9 +3,16 @@ import requests
 from keycloak import KeycloakOpenID
 application = Flask(__name__)
 
+# Configure client
+keycloak_openid = KeycloakOpenID(server_url="http://secure-keycloak-pyproject.192.168.64.2.nip.io/auth/",
+client_id="jc-client",
+realm_name="master",
+client_secret_key="secret")
+    
 @application.route("/")
 def hello():
-    keycloak()
+    keycloak1 = keycloak()
+    print("well:", keycloak1)
     return getit()
 
 def getit():
@@ -14,13 +21,10 @@ def getit():
     return msg
 
 def keycloak():
-    # Configure client
-    keycloak_openid = KeycloakOpenID(server_url="http://localhost:8080/auth/",
-    client_id="example_client",
-    realm_name="example_realm",
-    client_secret_key="secret")
+    # Get WellKnow
+    config_well_know = keycloak_openid.well_know()
     
-    return keycloak_openid
+    return config_well_know
     
 if __name__ == "__main__":
     application.run()
