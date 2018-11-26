@@ -7,7 +7,8 @@ def hello():
     return getit()
 
 def getit():
-    msg = "golly"
+    r = requests.get('https://google.com')
+    msg = str(r.status_code)
     return msg
     
 if __name__ == "__main__":
