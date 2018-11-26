@@ -1,6 +1,6 @@
 from flask import Flask
 import requests
-import keycloak
+from keycloak import KeycloakOpenID
 application = Flask(__name__)
 
 @application.route("/")
